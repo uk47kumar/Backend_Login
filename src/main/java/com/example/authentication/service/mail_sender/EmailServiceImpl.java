@@ -1,4 +1,4 @@
-package com.example.authentication.mail_sender;
+package com.example.authentication.service.mail_sender;
 
 import java.io.File;
 import java.util.Random;
@@ -6,6 +6,7 @@ import java.util.Random;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
@@ -86,6 +87,7 @@ public class EmailServiceImpl implements EmailServices {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         Random random = new Random();
         int otp = random.nextInt(10000);
+//        String otp = RandomString.make(5);
         // Setting up necessary details
         mailMessage.setFrom(sender);
         mailMessage.setTo(emailId);
@@ -94,7 +96,7 @@ public class EmailServiceImpl implements EmailServices {
 
         // Sending the mail
         javaMailSender.send(mailMessage);
-        return "OTP sent successfully";
+        return String.format("%04d", otp);
     }
 
 }

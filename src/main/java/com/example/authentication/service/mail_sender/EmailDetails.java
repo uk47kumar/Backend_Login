@@ -1,4 +1,4 @@
-package com.example.authentication.mail_sender;
+package com.example.authentication.service.mail_sender;
 
 import lombok.Data;
 
