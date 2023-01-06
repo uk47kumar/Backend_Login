@@ -42,4 +42,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
     }
 
+    @ExceptionHandler(DuplicateException.class)
+    public ResponseEntity<Map<String,Object>> notFoundHandler(DuplicateException e){
+        Map map = new HashMap<>();
+        map.put("message", e.getMessage());
+        map.put("success",true);
+        map.put("status", HttpStatus.BAD_REQUEST);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+    }
 }

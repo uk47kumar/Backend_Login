@@ -1,4 +1,4 @@
-package com.example.authentication.service.mail_sender;
+package com.example.authentication.service.mail;
 
 import java.io.File;
 import java.util.Random;
@@ -6,7 +6,6 @@ import java.util.Random;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;

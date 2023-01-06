@@ -1,4 +1,4 @@
-package com.example.authentication.model;
+package com.example.authentication.model.user;
 
 
 import lombok.AllArgsConstructor;
@@ -8,9 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.*;
-
 
 
 @Data
@@ -20,23 +18,25 @@ import java.util.*;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Size(min = 3, max = 10, message = "Invalid Name!")
+    @Column(length = 15)
     private String firstName;
 
+    @Column(length = 15)
     private String lastName;
 
+    @Column(length = 10)
     private String username;
-
-    @Column(unique = true)
+    @Column(unique = true,length = 30)
     private String email;
 
     private String password;
 
     private boolean verified;
 
+    @Temporal(TemporalType.TIMESTAMP)
     private Date email_verified_at;
 
     private String otp;

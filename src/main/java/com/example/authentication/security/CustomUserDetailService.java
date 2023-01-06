@@ -1,7 +1,7 @@
 package com.example.authentication.security;
 
-import com.example.authentication.model.User;
-import com.example.authentication.repo.UserRepo;
+import com.example.authentication.model.user.User;
+import com.example.authentication.repo.user.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,4 +1,4 @@
-package com.example.authentication.service.mail_sender;
+package com.example.authentication.service.mail;
 
 public interface EmailServices {
     // Method
