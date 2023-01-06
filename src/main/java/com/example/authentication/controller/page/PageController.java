@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 @RestController
 public class PageController {
@@ -28,5 +29,15 @@ public class PageController {
     public String delete(@PathVariable("id")int id){
         this.pageService.delete(id);
         return "page with Id: "+id+" is deleted";
+    }
+
+    @GetMapping("/page/{id}")
+    public Page getById(@PathVariable("id")int id){
+        return this.pageService.getById(id);
+    }
+
+    @GetMapping("/page")
+    public List<Page> findAll(){
+        return this.pageService.findAll();
     }
 }

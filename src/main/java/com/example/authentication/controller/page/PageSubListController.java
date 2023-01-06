@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 @RestController
 public class PageSubListController {
@@ -28,5 +29,15 @@ public class PageSubListController {
     public String delete(@PathVariable("id")int id){
         this.pageSubListService.delete(id);
         return "Page_Sub_List With ID: "+id+" Is Deleted";
+    }
+
+    @GetMapping("/pageSubList/{id}")
+    public PageSubList getById(@PathVariable("id")int id){
+        return this.pageSubListService.getById(id);
+    }
+
+    @GetMapping("/pageSubList")
+    public List<PageSubList> findAll(){
+        return this.pageSubListService.findAll();
     }
 }

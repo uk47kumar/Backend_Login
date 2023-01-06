@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ComponentTypeImpl implements ComponentTypeService {
@@ -21,7 +22,7 @@ public class ComponentTypeImpl implements ComponentTypeService {
 
     @Override
     public ComponentType update(int id, ComponentType componentType) {
-        ComponentType componentType1 = componentTypeRepo.findById(id).orElseThrow(()-> new ResourceNotFoundException("Component_Type With ID: "+id+" Not found"));
+        ComponentType componentType1 = componentTypeRepo.findById(id).orElseThrow(()-> new ResourceNotFoundException("Component_Type With ID: "+id+" Not Found"));
         componentType1.setUrl1(componentType.getUrl1());
         componentType1.setUrl2(componentType.getUrl2());
         componentType1.setUpdated(new Date());
@@ -30,11 +31,16 @@ public class ComponentTypeImpl implements ComponentTypeService {
 
     @Override
     public ComponentType getById(int id) {
-        return null;
+        return this.componentTypeRepo.findById(id).orElseThrow(()-> new ResourceNotFoundException("ComponentType With Id: "+id+" Not Found"));
     }
 
     @Override
     public void delete(int id) {
         this.componentTypeRepo.deleteById(id);
+    }
+
+    @Override
+    public List<ComponentType> findAll() {
+        return this.componentTypeRepo.findAll();
     }
 }

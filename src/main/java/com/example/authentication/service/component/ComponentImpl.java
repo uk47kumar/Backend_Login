@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ComponentImpl implements ComponentService {
@@ -43,5 +44,10 @@ public class ComponentImpl implements ComponentService {
         }catch (Exception e){
             throw new ResourceNotFoundException("Component With Id: "+id+" Not Found !");
         }
+    }
+
+    @Override
+    public List<Component> findAll() {
+        return this.componentRepo.findAll();
     }
 }

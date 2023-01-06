@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 @RestController
 public class ComponentController {
@@ -28,5 +29,15 @@ public class ComponentController {
     public String delete(@PathVariable("id")int id){
         this.componentService.delete(id);
         return "Component with Id: "+id+" Is Deleted";
+    }
+
+    @GetMapping("/component/{id}")
+    public Component getById(@PathVariable("id")int id){
+        return this.componentService.getById(id);
+    }
+
+    @GetMapping("/component")
+    public List<Component> findAll(){
+        return this.componentService.findAll();
     }
 }

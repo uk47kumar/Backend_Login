@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 @RestController
 public class ComponentTypeController {
@@ -28,5 +29,15 @@ public class ComponentTypeController {
     public String delete(@PathVariable("id")int id){
         this.componentTypeService.delete(id);
         return "ComponentType With Id: "+id+" Is Deleted !";
+    }
+
+    @GetMapping("/componentType/{id}")
+    public ComponentType getById(@PathVariable("id")int id){
+        return this.componentTypeService.getById(id);
+    }
+
+    @GetMapping("/componentType")
+    public List<ComponentType> findAll(){
+        return this.componentTypeService.findAll();
     }
 }

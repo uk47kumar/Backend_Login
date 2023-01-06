@@ -1,5 +1,6 @@
 package com.example.authentication.model.component;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,5 +35,6 @@ public class ComponentType {
     private Date updated;
 
     @OneToMany(mappedBy = "componentTypeId",cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<Component> components;
 }

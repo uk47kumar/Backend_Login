@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class PageSubListImpl implements PageSubListService {
@@ -29,7 +30,7 @@ public class PageSubListImpl implements PageSubListService {
 
     @Override
     public PageSubList getById(int id) {
-        return null;
+        return this.pageSubListRepo.findById(id).orElseThrow(()-> new ResourceNotFoundException("Page_Sub_List With Id: "+id+" Not Found"));
     }
 
     @Override
@@ -39,5 +40,10 @@ public class PageSubListImpl implements PageSubListService {
         }catch (Exception e){
             throw new ResourceNotFoundException("Page_Sub_List With ID: "+id+" NOt Found !");
         }
+    }
+
+    @Override
+    public List<PageSubList> findAll() {
+        return this.pageSubListRepo.findAll();
     }
 }

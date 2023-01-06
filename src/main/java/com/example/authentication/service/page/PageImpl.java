@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -30,7 +31,7 @@ public class PageImpl implements PageService {
 
     @Override
     public Page getById(int id) {
-        return null;
+        return this.pageRepo.findById(id).orElseThrow(()-> new ResourceNotFoundException("Page with Id: "+id+" Not Found"));
     }
 
     @Override
@@ -40,5 +41,10 @@ public class PageImpl implements PageService {
         }catch (Exception e){
             throw new ResourceNotFoundException("Page with Id: "+id+" Not Found !");
         }
+    }
+
+    @Override
+    public List<Page> findAll() {
+        return this.pageRepo.findAll();
     }
 }
