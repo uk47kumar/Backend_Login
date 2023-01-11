@@ -4,6 +4,10 @@ import com.example.authentication.exception.ResourceNotFoundException;
 import com.example.authentication.model.page.PageSubList;
 import com.example.authentication.repo.page.PageSubListRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -43,7 +47,18 @@ public class PageSubListImpl implements PageSubListService {
     }
 
     @Override
-    public List<PageSubList> findAll() {
-        return this.pageSubListRepo.findAll();
+    public List<PageSubList> findAll(int pageNumber, int pageSize, String sortBy, String sortDir) {
+        Sort sort = null;
+        if (sortDir.equalsIgnoreCase("asc")) {
+            sort = Sort.by(sortBy).ascending();
+        }else {
+            sort = Sort.by(sortBy).descending();
+        }
+
+        Pageable pageable = PageRequest.of(pageNumber,pageSize,sort);
+
+        Page<PageSubList> subListPage = this.pageSubListRepo.findAll(pageable);
+        List<PageSubList> pageContent = subListPage.getContent();
+        return pageContent;
     }
 }

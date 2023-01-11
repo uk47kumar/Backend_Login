@@ -4,6 +4,10 @@ import com.example.authentication.exception.ResourceNotFoundException;
 import com.example.authentication.repo.component.ComponentRepo;
 import com.example.authentication.model.component.Component;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -27,7 +31,7 @@ public class ComponentImpl implements ComponentService {
 
     @Override
     public Component update(int id, Component component) {
-        Component component1 = componentRepo.findById(id).orElseThrow(()-> new ResourceNotFoundException("Component With Id: "+id+" Not Found !"));
+        Component component1 = componentRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Component With Id: " + id + " Not Found !"));
         component1.setComponentName(component.getComponentName());
         component1.setSubComponentName(component.getSubComponentName());
         component1.setComponentOrder(component.getComponentOrder());
@@ -41,13 +45,24 @@ public class ComponentImpl implements ComponentService {
     public void delete(int id) {
         try {
             this.componentRepo.deleteById(id);
-        }catch (Exception e){
-            throw new ResourceNotFoundException("Component With Id: "+id+" Not Found !");
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Component With Id: " + id + " Not Found !");
         }
     }
 
     @Override
-    public List<Component> findAll() {
-        return this.componentRepo.findAll();
+    public List<Component> findAll(int pageNumber, int pageSize, String sortBy, String sortDir) {
+
+        Sort sort = null;
+        if (sortDir.equalsIgnoreCase("asc")) {
+            sort = Sort.by(sortBy).ascending();
+        } else {
+            sort = Sort.by(sortBy).descending();
+        }
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+
+        Page<Component> componentPage = this.componentRepo.findAll(pageable);
+        List<Component> content = componentPage.getContent();
+        return content;
     }
 }

@@ -4,6 +4,10 @@ import com.example.authentication.exception.ResourceNotFoundException;
 import com.example.authentication.model.component.ComponentType;
 import com.example.authentication.repo.component.ComponentTypeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -40,7 +44,17 @@ public class ComponentTypeImpl implements ComponentTypeService {
     }
 
     @Override
-    public List<ComponentType> findAll() {
-        return this.componentTypeRepo.findAll();
+    public List<ComponentType> findAll(int pageNumber, int pageSize, String sortBy, String sortDir) {
+        Sort sort = null;
+        if (sortDir.equalsIgnoreCase("asc")) {
+            sort = Sort.by(sortBy).ascending();
+        }else {
+            sort = Sort.by(sortBy).descending();
+        }
+
+        Pageable pageable = PageRequest.of(pageNumber,pageSize,sort);
+        Page<ComponentType> typePage = this.componentTypeRepo.findAll(pageable);
+        List<ComponentType> pageContent = typePage.getContent();
+        return pageContent;
     }
 }

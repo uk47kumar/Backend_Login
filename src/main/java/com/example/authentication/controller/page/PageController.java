@@ -1,12 +1,12 @@
 package com.example.authentication.controller.page;
 
 import com.example.authentication.model.page.Page;
+import com.example.authentication.payload.PageResponse;
 import com.example.authentication.service.page.PageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
-import java.util.List;
 
 @RestController
 public class PageController {
@@ -37,7 +37,11 @@ public class PageController {
     }
 
     @GetMapping("/page")
-    public List<Page> findAll(){
-        return this.pageService.findAll();
+    public PageResponse findAll(@RequestParam(value = "pageNumber", defaultValue = "0",required = false)int pageNumber,
+                                @RequestParam(value = "pageSize",defaultValue = "2",required = false)int pageSize,
+                                @RequestParam(value = "sortBy",defaultValue = "url2",required = false)String sortBy,
+                                @RequestParam(value = "sortDir",defaultValue = "asc",required = false)String sortDir){
+        PageResponse pageResponse = this.pageService.findAll(pageNumber, pageSize, sortBy, sortDir);
+        return pageResponse;
     }
 }

@@ -37,7 +37,11 @@ public class ComponentTypeController {
     }
 
     @GetMapping("/componentType")
-    public List<ComponentType> findAll(){
-        return this.componentTypeService.findAll();
+    public List<ComponentType> findAll(@RequestParam(value = "pageNumber",defaultValue = "0",required = false)int pageNumber,
+                                       @RequestParam(value = "pageSize",defaultValue = "5",required = false)int pageSize,
+                                       @RequestParam(value = "sortBy",defaultValue = "url1",required = false)String sortBy,
+                                       @RequestParam(value = "sortDir",defaultValue = "asc",required = false)String sortDir){
+        List<ComponentType> componentTypes = this.componentTypeService.findAll(pageNumber, pageSize, sortBy, sortDir);
+        return componentTypes;
     }
 }

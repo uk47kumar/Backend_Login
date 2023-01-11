@@ -2,13 +2,16 @@ package com.example.authentication.service.page;
 
 import com.example.authentication.exception.ResourceNotFoundException;
 import com.example.authentication.model.page.Page;
+import com.example.authentication.payload.PageResponse;
 import com.example.authentication.repo.page.PageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 public class PageImpl implements PageService {
@@ -44,7 +47,28 @@ public class PageImpl implements PageService {
     }
 
     @Override
-    public List<Page> findAll() {
-        return this.pageRepo.findAll();
+    public PageResponse findAll(int pageNumber, int pageSize, String sortBy, String sortDir) {
+
+        Sort sort = null;
+        if(sortDir.equalsIgnoreCase("asc")){
+            sort = Sort.by(sortBy).ascending();
+        }else {
+            sort = Sort.by(sortBy).descending();
+        }
+
+        Pageable p = PageRequest.of(pageNumber,pageSize, sort);
+
+        org.springframework.data.domain.Page<Page> pagePage = this.pageRepo.findAll(p);
+        List<Page> allPage = pagePage.getContent();
+
+        PageResponse pageResponse = new PageResponse();
+        pageResponse.setContent(allPage);
+        pageResponse.setPageNumber(pagePage.getNumber());
+        pageResponse.setPageSize(pagePage.getSize());
+        pageResponse.setTotalElements(pagePage.getTotalElements());
+        pageResponse.setTotalPages(pagePage.getTotalPages());
+        pageResponse.setLastPage(pagePage.isLast());
+
+        return pageResponse;
     }
 }

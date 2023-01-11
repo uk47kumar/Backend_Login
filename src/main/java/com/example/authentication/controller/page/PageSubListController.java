@@ -37,7 +37,11 @@ public class PageSubListController {
     }
 
     @GetMapping("/pageSubList")
-    public List<PageSubList> findAll(){
-        return this.pageSubListService.findAll();
+    public List<PageSubList> findAll(@RequestParam(value = "pageNumber",defaultValue = "0",required = false)int pageNumber,
+                                     @RequestParam(value = "pageSize",defaultValue = "5",required = false)int pageSize,
+                                     @RequestParam(value = "sortBy",defaultValue = "pageSubListId",required = false)String sortBy,
+                                     @RequestParam(value = "sortDir",defaultValue = "asc",required = false)String sortDir){
+        List<PageSubList> pageSubLists = this.pageSubListService.findAll(pageNumber, pageSize, sortBy, sortDir);
+        return pageSubLists;
     }
 }

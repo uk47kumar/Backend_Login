@@ -12,5 +12,5 @@ public interface ComponentService {
     Component getById(int id);
 
     void delete(int id);
-    List<Component> findAll();
+    List<Component> findAll(int pageNumber, int pageSize, String sortBy, String sortDir);
 }

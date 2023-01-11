@@ -10,5 +10,5 @@ public interface PageSubListService {
     PageSubList update(int id, PageSubList pageSubList);
     PageSubList getById(int id);
     void delete(int id);
-    List<PageSubList> findAll();
+    List<PageSubList> findAll(int pageNumber, int pageSize, String sortBy, String sortDir);
 }

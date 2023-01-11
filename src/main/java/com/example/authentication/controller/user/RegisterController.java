@@ -1,4 +1,4 @@
-package com.example.authentication.controller;
+package com.example.authentication.controller.user;
 
 import com.example.authentication.exception.DuplicateException;
 import com.example.authentication.model.user.User;

@@ -9,5 +9,5 @@ public interface ComponentTypeService {
     ComponentType update(int id, ComponentType componentType);
     ComponentType getById(int id);
     void delete(int id);
-    List<ComponentType> findAll();
+    List<ComponentType> findAll(int pageNumber, int pageSize, String sortBy, String sortDir);
 }
