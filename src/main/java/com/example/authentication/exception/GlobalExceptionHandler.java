@@ -15,7 +15,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<Map<String,Object>> notFoundHandler(ResourceNotFoundException e){
-        Map map = new HashMap<>();
+        Map<String,Object> map = new HashMap<>();
         map.put("message", e.getMessage());
         map.put("success",false);
         map.put("status", HttpStatus.BAD_REQUEST);
@@ -35,7 +35,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ApiException.class)
     public ResponseEntity<Map<String,Object>> notFoundHandler(ApiException e){
-        Map map = new HashMap<>();
+        Map<String,Object> map = new HashMap<>();
         map.put("message", e.getMessage());
         map.put("success",true);
         map.put("status", HttpStatus.BAD_REQUEST);
@@ -44,7 +44,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(DuplicateException.class)
     public ResponseEntity<Map<String,Object>> notFoundHandler(DuplicateException e){
-        Map map = new HashMap<>();
+        Map<String,Object> map = new HashMap<>();
         map.put("message", e.getMessage());
         map.put("success",true);
         map.put("status", HttpStatus.BAD_REQUEST);
